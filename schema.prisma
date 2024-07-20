@@ -52,8 +52,30 @@ model User {
   role          Role    @default(SINGER)
   accounts      Account[]
   sessions      Session[]
+
+  userToGenres UserToGenres[]
  
   @@map("users")
+}
+
+model Genre {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  userToGenres UserToGenres[]
+
+  @@map("genre")
+}
+
+model UserToGenres {
+  userId  String
+  genreId Int
+  user    User   @relation(fields: [userId], references: [id])
+  genre   Genre  @relation(fields: [genreId], references: [id])
+
+  @@id([userId, genreId])
+  @@index([userId], name: "UserIndex")
+  @@index([genreId], name: "GenreIndex")
+  @@map("user_genres")
 }
  
 model VerificationToken {
