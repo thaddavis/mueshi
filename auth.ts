@@ -3,39 +3,58 @@ import Credentials from "next-auth/providers/credentials";
 import { Adapter } from "next-auth/adapters";
 import { prisma } from "@/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-
-// console.log('prisma', prisma)
+import { compare } from "bcrypt";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  pages: {
+    error: "/auth/error", // Error code passed in query string as ?error=
+  },
   adapter: PrismaAdapter(prisma) as Adapter,
   callbacks: {
     session({ session, user }) {
-      session.user.role = user.role;
+      console.log();
+      console.log("CALLBACK session", session, user);
+      console.log();
+
+      session.user.role = "singer";
       return session;
     },
   },
   providers: [
     Credentials({
-      name: "Credentials",
+      name: "Email",
       credentials: {
-        username: { label: "Username" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log("authorize", credentials);
+        let user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email as string,
+          },
+        });
 
-        const user: User = {
-          id: "1",
-          name: "J Smith",
-          email: "jsmith@example.com",
-          role: "singer",
+        const isAuthed = await compare(
+          credentials.password as string,
+          user?.password as string
+        );
+
+        if (isAuthed) {
+          console.log("AUTHORIZED");
+        } else {
+          console.log("UNAUTHORIZED");
+          return false;
+        }
+
+        const finalUserObj = {
+          email: user?.email,
         };
-        if (user) {
+        if (finalUserObj) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return finalUserObj;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;

@@ -13,7 +13,6 @@ https://authjs.dev/getting-started/adapters/prisma
 
 - psql -h 0.0.0.0 -p 5432 -U postgres
 
-
 ## Setup
 
 - npx prisma generate
@@ -24,6 +23,11 @@ https://authjs.dev/getting-started/adapters/prisma
 - run initial migration
   - npm exec prisma migrate dev √
 
+## Running a migration
+
+- update the `schema.prisma` with desired changes
+- run the migration
+  - ie: prisma migrate dev --name add_password_to_user
 
 ## Prisma docs
 

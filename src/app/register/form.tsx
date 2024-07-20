@@ -1,8 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 export default function Form() {
+  const router = useRouter();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -14,6 +17,13 @@ export default function Form() {
       }),
     });
     console.log({ response });
+
+    if (response.ok) {
+      // debugger;
+      router.push("/");
+    } else {
+      console.error("Failed to register");
+    }
   };
   return (
     <form
