@@ -1,17 +1,11 @@
-import {
-  ArrowPathIcon,
-  ChevronRightIcon,
-  CloudArrowUpIcon,
-  Cog6ToothIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-  ServerIcon,
-} from "@heroicons/react/20/solid";
+"use client";
+
 import {
   BoltIcon,
   CalendarDaysIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 const primaryFeatures = [
   {
@@ -109,7 +103,9 @@ const footerNavigation = {
   ],
 };
 
-export default function Example() {
+export default function Page() {
+  const router = useRouter();
+
   return (
     <div className="bg-white">
       <main>
@@ -141,12 +137,12 @@ export default function Example() {
                 Where magic happens
               </p>
               <div className="mt-10 flex items-center gap-x-6">
-                <a
-                  href="#"
+                <button
+                  onClick={() => router.push("/register")}
                   className="text-white rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold  shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
                 >
                   Sign up
-                </a>
+                </button>
                 <a href="#" className="text-sm font-semibold leading-6 ">
                   Sign in <span aria-hidden="true">→</span>
                 </a>
