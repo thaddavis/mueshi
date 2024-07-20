@@ -1,0 +1,4 @@
+# TLDR
+
+\l - list databases
+
