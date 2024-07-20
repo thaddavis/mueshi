@@ -16,10 +16,10 @@ export default function Form() {
         password: formData.get("password"),
       }),
     });
+
     console.log({ response });
 
     if (response.ok) {
-      // debugger;
       router.push("/");
     } else {
       console.error("Failed to register");
