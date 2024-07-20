@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       console.log("CALLBACK session", session, user);
       console.log();
 
-      session.user.role = "singer";
+      // session.user.role = "singer";
       return session;
     },
   },
@@ -46,11 +46,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           console.log("AUTHORIZED");
         } else {
           console.log("UNAUTHORIZED");
-          return false;
+          return null;
         }
 
-        const finalUserObj = {
-          email: user?.email,
+        const finalUserObj: User = {
+          email: user?.email!,
         };
         if (finalUserObj) {
           // Any object returned will be saved in `user` property of the JWT
