@@ -1,16 +1,12 @@
-import { handlers, auth, signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 
 function SignIn({ children }: { children: React.ReactNode }) {
   return (
     <form
       action={async () => {
         "use server";
-        // await signIn("credentials", {
-        //   // redirect: true,
-        //   // redirectTo: "/singer-dashboard",
-        // });
         await signIn("email", {
-          redirectTo: "/singer-dashboard",
+          redirectTo: "/dashboard",
         });
       }}
     >

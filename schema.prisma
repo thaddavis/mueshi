@@ -36,6 +36,11 @@ model Session {
  
   @@map("sessions")
 }
+
+enum Role {
+  SINGER
+  INSTRUMENTALIST
+}
  
 model User {
   id            String    @id @default(cuid())
@@ -44,6 +49,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  role          Role    @default(SINGER)
   accounts      Account[]
   sessions      Session[]
  

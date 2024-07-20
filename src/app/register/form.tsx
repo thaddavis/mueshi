@@ -8,18 +8,20 @@ export default function Form() {
   const router = useRouter();
 
   const roles = [
-    { id: "singer", title: "Singer" },
-    { id: "instrumentalist", title: "Instrumentalist" },
+    { id: "SINGER", title: "Singer" },
+    { id: "INSTRUMENTALIST", title: "Instrumentalist" },
   ];
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     const response = await fetch(`/api/auth/register`, {
       method: "POST",
       body: JSON.stringify({
         email: formData.get("email"),
         password: formData.get("password"),
+        role: formData.get("role"),
       }),
     });
 
@@ -97,8 +99,9 @@ export default function Form() {
               {roles.map((role) => (
                 <div key={role.id} className="flex items-center">
                   <input
-                    defaultChecked={role.id === "singer"}
+                    defaultChecked={role.id === "SINGER"}
                     id={role.id}
+                    value={role.id}
                     name="role"
                     type="radio"
                     className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600"

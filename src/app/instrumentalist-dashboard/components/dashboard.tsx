@@ -183,7 +183,7 @@ export function SingerDashboard() {
         </div>
 
         <main className="py-10 lg:pl-72">
-          <div className="px-4 sm:px-6 lg:px-8">SINGER DASHBOARD</div>
+          <div className="px-4 sm:px-6 lg:px-8">INSTRUMENTALIST DASHBOARD</div>
         </main>
       </div>
     </>

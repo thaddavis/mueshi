@@ -14,12 +14,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   adapter: PrismaAdapter(prisma) as Adapter,
   callbacks: {
-    session({ session, user }) {
+    async session({ session }) {
       console.log();
-      console.log("CALLBACK session", session, user);
+      console.log("CALLBACK session", session);
       console.log();
 
-      // session.user.role = "singer";
+      let user = await prisma.user.findUnique({
+        where: {
+          email: session?.user.email as string,
+        },
+      });
+
+      session.user.role = user?.role as string;
+
+      console.log("session", session);
+
       return session;
     },
   },
@@ -49,8 +58,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
+        console.log("user", user);
+
         const finalUserObj: User = {
           email: user?.email!,
+          role: user?.role!,
         };
         if (finalUserObj) {
           // Any object returned will be saved in `user` property of the JWT
