@@ -5,7 +5,13 @@ function SignIn({ children }: { children: React.ReactNode }) {
     <form
       action={async () => {
         "use server";
-        await signIn();
+        // await signIn("credentials", {
+        //   // redirect: true,
+        //   // redirectTo: "/singer-dashboard",
+        // });
+        await signIn("email", {
+          redirectTo: "/singer-dashboard",
+        });
       }}
     >
       <p>{children}</p>
@@ -24,7 +30,9 @@ function SignOut({ children }: { children: React.ReactNode }) {
     <form
       action={async () => {
         "use server";
-        await signOut();
+        await signOut({
+          redirectTo: "/",
+        });
       }}
     >
       <p>{children}</p>

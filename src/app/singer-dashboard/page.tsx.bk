@@ -1,7 +1,6 @@
 import { handlers, auth, signIn, signOut } from "@/auth";
 import { Session } from "next-auth";
 import { redirect } from "next/navigation";
-import { SingerDashboard } from "./components/dashboard";
 
 export default async function DashboardPage() {
   let session: Session | null | boolean = await auth();
@@ -10,7 +9,9 @@ export default async function DashboardPage() {
   console.log("user", user);
 
   if (session) {
-    return <SingerDashboard />;
+    return (
+      <div>Singer dashboard page - you need to be logged in to view this</div>
+    );
   } else {
     redirect("/");
   }

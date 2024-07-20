@@ -7,6 +7,11 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Form() {
   const router = useRouter();
 
+  const roles = [
+    { id: "singer", title: "Singer" },
+    { id: "instrumentalist", title: "Instrumentalist" },
+  ];
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -80,6 +85,34 @@ export default function Form() {
               />
             </div>
           </div>
+
+          <fieldset>
+            <legend className="text-sm font-semibold leading-6 text-gray-900">
+              Role
+            </legend>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              Are you a singer or instrumentalist?
+            </p>
+            <div className="mt-6 space-y-6 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+              {roles.map((role) => (
+                <div key={role.id} className="flex items-center">
+                  <input
+                    defaultChecked={role.id === "singer"}
+                    id={role.id}
+                    name="role"
+                    type="radio"
+                    className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600"
+                  />
+                  <label
+                    htmlFor={role.id}
+                    className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    {role.title}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </fieldset>
 
           <div>
             <button
