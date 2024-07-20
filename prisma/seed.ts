@@ -1,14 +1,32 @@
-import { prisma } from "@/prisma";
+import { prisma } from "../prisma";
 
 async function main() {
-  const genre = await prisma.genre.upsert({
-    where: { name: "blues" },
-    update: {},
-    create: {
-      name: "blue",
-    },
-  });
-  console.log({ genre });
+  const genres = [
+    "blues",
+    "classical",
+    "country",
+    "electronic",
+    "folk",
+    "hip-hop",
+    "jazz",
+    "latin",
+    "pop",
+    "reggae",
+    "rock",
+    "metal",
+    "punk",
+    "soul",
+  ];
+
+  for (const genre of genres) {
+    await prisma.genre.upsert({
+      where: { name: genre },
+      update: {},
+      create: {
+        name: genre,
+      },
+    });
+  }
 }
 main()
   .then(async () => {

@@ -32,3 +32,17 @@ https://authjs.dev/getting-started/adapters/prisma
 ## Prisma docs
 
 - https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/introduction#3-importing-prisma-client
+
+## Seeding the db with data
+
+- STEP 1
+  - mkdir prisma && touch prisma/seed.ts
+    - populate with seeding code
+  - npm i -D ts-node typescript @types/node
+  - add key to root of `package.json`
+
+```
+"prisma": {
+  "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+},
+```
