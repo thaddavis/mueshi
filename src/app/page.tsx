@@ -217,8 +217,8 @@ export default function Example() {
               Trusted by thousands of musicians&nbsp;worldwide
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-900">
-              Join the thousands of musicians from every corner of the global
-              who have already signed up to Mueshi Music
+              Join the thousands of musicians from every corner of the globe who
+              have already signed up to Mueshi Music
             </p>
           </div>
           <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10  sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
