@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Form() {
   const router = useRouter();
@@ -22,27 +23,10 @@ export default function Form() {
     if (response.ok) {
       router.push("/");
     } else {
-      console.error("Failed to register");
+      toast("Error", { type: "error" });
     }
   };
   return (
-    // <form
-    //   onSubmit={handleSubmit}
-    //   className="flex flex-col gap-2 mx-auto max-w-md mt-10"
-    // >
-    //   <input
-    //     name="email"
-    //     className="border border-black text-black"
-    //     type="email"
-    //   />
-    //   <input
-    //     name="password"
-    //     className="border border-black  text-black"
-    //     type="password"
-    //   />
-    //   <button type="submit">Register</button>
-    // </form>
-
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img

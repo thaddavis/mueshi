@@ -143,9 +143,12 @@ export default function Page() {
                 >
                   Sign up
                 </button>
-                <a href="#" className="text-sm font-semibold leading-6 ">
+                <button
+                  onClick={() => router.push("/sign-in")}
+                  className="text-sm font-semibold leading-6 "
+                >
                   Sign in <span aria-hidden="true">→</span>
-                </a>
+                </button>
               </div>
             </div>
             <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
