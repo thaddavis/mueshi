@@ -15,25 +15,56 @@ import {
   CogIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
-
-const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Connect", href: "#", icon: UsersIcon, current: false },
-  { name: "Settings", href: "#", icon: CogIcon, current: false },
-  {
-    name: "Sign out",
-    href: "#",
-    icon: ArrowLeftStartOnRectangleIcon,
-    current: false,
-  },
-];
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function SingerDashboard() {
+export function SingerDashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const navigation = [
+    {
+      name: "Dashboard",
+      pathname: "/instrumentalist-dashboard",
+      onClick: () => {
+        router.push("/instrumentalist-dashboard");
+      },
+      icon: HomeIcon,
+    },
+    {
+      name: "Connect",
+      pathname: "/instrumentalist-dashboard/connect",
+      onClick: () => {
+        router.push("/instrumentalist-dashboard/connect");
+      },
+      icon: UsersIcon,
+    },
+    {
+      name: "Settings",
+      pathname: "/instrumentalist-dashboard/settings",
+      onClick: () => {
+        router.push("/instrumentalist-dashboard/settings");
+      },
+      icon: CogIcon,
+    },
+    {
+      name: "Sign out",
+      onClick: async () => {
+        router.push("/signout");
+      },
+      icon: ArrowLeftStartOnRectangleIcon,
+      current: false,
+    },
+  ];
 
   return (
     <>
@@ -83,10 +114,10 @@ export function SingerDashboard() {
                       <ul role="list" className="-mx-2 space-y-1">
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <a
-                              href={item.href}
+                            <button
+                              onClick={item.onClick}
                               className={classNames(
-                                item.current
+                                pathname === item.pathname
                                   ? "bg-blue-700 text-white"
                                   : "text-blue-200 hover:bg-blue-700 hover:text-white",
                                 "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
@@ -102,7 +133,7 @@ export function SingerDashboard() {
                                 )}
                               />
                               {item.name}
-                            </a>
+                            </button>
                           </li>
                         ))}
                       </ul>
@@ -131,13 +162,13 @@ export function SingerDashboard() {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
+                        <button
+                          onClick={item.onClick}
                           className={classNames(
-                            item.current
+                            pathname === item.pathname
                               ? "bg-blue-700 text-white"
                               : "text-blue-200 hover:bg-blue-700 hover:text-white",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                            "group flex gap-x-1 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -150,7 +181,7 @@ export function SingerDashboard() {
                             )}
                           />
                           {item.name}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -183,7 +214,7 @@ export function SingerDashboard() {
         </div>
 
         <main className="py-10 lg:pl-72">
-          <div className="px-4 sm:px-6 lg:px-8">INSTRUMENTALIST DASHBOARD</div>
+          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
     </>
