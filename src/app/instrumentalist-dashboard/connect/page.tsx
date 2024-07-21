@@ -1,11 +1,5 @@
-import { auth } from "@/auth";
-import { Session } from "next-auth";
-import { useEffect } from "react";
+import { UserResults } from "@/src/app/singer-dashboard/connect/components/userResults";
 
 export default async function ConnectPage() {
-  useEffect(() => {
-    console.log("--- --- ---");
-  });
-
-  return <>Connect</>;
+  return <UserResults />;
 }

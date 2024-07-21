@@ -33,7 +33,7 @@ export function DashboardLayout({
 
   const navigation = [
     {
-      name: "Dashboard",
+      name: "Instrumentalist Dashboard",
       pathname: "/instrumentalist-dashboard",
       onClick: () => {
         router.push("/instrumentalist-dashboard");
