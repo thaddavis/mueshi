@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useState } from "react";
 import { interestsList } from "@/src/app/instrumentalist-dashboard/shared-components/interestsList";
 
 export const Interests = () => {
+  useEffect(() => {
+    async function anAsyncFunc() {
+      const response = await fetch("/api/interests");
+      const { userInterests } = await response.json();
+
+      const tmpList = new Array(interestsList.length).fill(false);
+      for (let interest in userInterests) {
+        console.log("interest", interest);
+
+        const interestIndex = interestsList.findIndex(
+          (item) => item.id === userInterests[interest].interestId
+        );
+
+        if (interestIndex !== -1) {
+          tmpList[interestIndex] = true;
+        }
+      }
+
+      console.log("tmpList", tmpList);
+
+      setCheckedState(tmpList);
+    }
+
+    anAsyncFunc();
+  }, []);
+
   const [checkedState, setCheckedState] = useState(
     new Array(interestsList.length).fill(false)
   );
@@ -61,9 +87,15 @@ export const Interests = () => {
         onClick={async () => {
           console.log("checkedState", checkedState);
 
+          const selectedInterests = interestsList.filter(
+            (_, index) => checkedState[index]
+          );
+
           const response = await fetch(`/api/interests`, {
             method: "POST",
-            body: JSON.stringify({}),
+            body: JSON.stringify({
+              selectedInterests,
+            }),
           });
 
           console.log("response", response);

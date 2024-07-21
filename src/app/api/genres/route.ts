@@ -33,8 +33,6 @@ export const POST = auth(async function (req) {
       });
     }
 
-    // console.log("selectedGenres", selectedGenres);
-
     return NextResponse.json({ message: "genres updated" });
   } catch (e) {
     return NextResponse.json({ error: e }, { status: 500 });
