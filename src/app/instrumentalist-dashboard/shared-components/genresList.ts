@@ -21,7 +21,7 @@ export const genresList = [
   },
   {
     name: "Hip-Hop",
-    id: 5,
+    id: 6,
   },
   {
     name: "Jazz",

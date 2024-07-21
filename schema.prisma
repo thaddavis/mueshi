@@ -54,6 +54,7 @@ model User {
   sessions      Session[]
 
   userToGenres UserToGenres[]
+  userToInterests UserToInterests[]
  
   @@map("users")
 }
@@ -77,6 +78,30 @@ model UserToGenres {
   @@index([genreId], name: "GenreIndex")
   @@map("user_genres")
 }
+
+// 
+
+model UserToInterests {
+  userId  String
+  interestId Int
+  user    User   @relation(fields: [userId], references: [id])
+  interest   Interest  @relation(fields: [interestId], references: [id])
+
+  @@id([userId, interestId])
+  @@index([userId], name: "UserInterestIndex")
+  @@index([interestId], name: "InterestIndex")
+  @@map("user_interests")
+}
+
+model Interest {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  userToInterests UserToInterests[]
+
+  @@map("interest")
+}
+
+// 
  
 model VerificationToken {
   identifier String

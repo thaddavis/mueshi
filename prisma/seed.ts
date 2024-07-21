@@ -27,6 +27,31 @@ async function main() {
       },
     });
   }
+
+  // --- --- --- ---
+
+  const interests = [
+    "alto",
+    "tenor",
+    "soprano",
+    "baritone",
+    "bassist",
+    "guitarist",
+    "keyboard",
+    "drummer",
+    "trumpet",
+    "saxophone",
+  ];
+
+  for (const interest of interests) {
+    await prisma.interest.upsert({
+      where: { name: interest },
+      update: {},
+      create: {
+        name: interest,
+      },
+    });
+  }
 }
 main()
   .then(async () => {

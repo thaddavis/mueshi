@@ -27,7 +27,7 @@ https://authjs.dev/getting-started/adapters/prisma
 
 - update the `schema.prisma` with desired changes
 - run the migration
-  - ie: prisma migrate dev --name add_password_to_user
+  - ie: npx prisma migrate dev --name add_password_to_user
 
 ## Prisma docs
 
@@ -46,3 +46,6 @@ https://authjs.dev/getting-started/adapters/prisma
   "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
 },
 ```
+
+npx prisma db seed
+npx prisma db seed-interests

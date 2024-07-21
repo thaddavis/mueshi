@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useState } from "react";
 import { genresList } from "@/src/app/instrumentalist-dashboard/shared-components/genresList";
 
 export const Genres = () => {
+  useEffect(() => {
+    async function anAsyncFunc() {
+      const response = await fetch("/api/genres");
+      const { userGenres } = await response.json();
+
+      const tmpList = new Array(genresList.length).fill(false);
+      for (let genre in userGenres) {
+        const genreIndex = genresList.findIndex(
+          (genreItem) => genreItem.id === userGenres[genre].genreId
+        );
+
+        if (genreIndex !== -1) {
+          tmpList[genreIndex] = true;
+        }
+      }
+
+      setCheckedState(tmpList);
+    }
+
+    anAsyncFunc();
+  }, []);
+
   const [checkedState, setCheckedState] = useState(
     new Array(genresList.length).fill(false)
   );
@@ -58,8 +80,19 @@ export const Genres = () => {
         )}
       </ul>
       <button
-        onClick={() => {
-          console.log("Updating genres");
+        onClick={async () => {
+          try {
+            const selectedGenres = genresList.filter(
+              (_, index) => checkedState[index]
+            );
+
+            const response = await fetch(`/api/genres`, {
+              method: "POST",
+              body: JSON.stringify({
+                selectedGenres,
+              }),
+            });
+          } catch (e) {}
         }}
         className="bg-blue-600 text-white rounded-md px-3 py-1.5 mt-4"
       >

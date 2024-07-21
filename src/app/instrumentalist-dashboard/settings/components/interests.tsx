@@ -58,8 +58,15 @@ export const Interests = () => {
         )}
       </ul>
       <button
-        onClick={() => {
-          console.log("Updating interests");
+        onClick={async () => {
+          console.log("checkedState", checkedState);
+
+          const response = await fetch(`/api/interests`, {
+            method: "POST",
+            body: JSON.stringify({}),
+          });
+
+          console.log("response", response);
         }}
         className="bg-blue-600 text-white rounded-md px-3 py-1.5 mt-4"
       >
