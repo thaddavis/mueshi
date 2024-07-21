@@ -22,7 +22,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function SingerDashboardLayout({
+export function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

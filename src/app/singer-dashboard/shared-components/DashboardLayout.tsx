@@ -15,25 +15,60 @@ import {
   CogIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
-
-const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Connect", href: "#", icon: UsersIcon, current: false },
-  { name: "Settings", href: "#", icon: CogIcon, current: false },
-  {
-    name: "Sign out",
-    href: "#",
-    icon: ArrowLeftStartOnRectangleIcon,
-    current: false,
-  },
-];
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function SingerDashboard() {
+export function DashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const navigation = [
+    {
+      name: "Singer Home",
+      pathname: "/singer-dashboard",
+      onClick: () => {
+        router.push("/singer-dashboard");
+        setSidebarOpen(false);
+      },
+      icon: HomeIcon,
+    },
+    {
+      name: "Connect",
+      pathname: "/singer-dashboard/connect",
+      onClick: () => {
+        router.push("/singer-dashboard/connect");
+        setSidebarOpen(false);
+      },
+      icon: UsersIcon,
+    },
+    {
+      name: "Settings",
+      pathname: "/singer-dashboard/settings",
+      onClick: () => {
+        router.push("/singer-dashboard/settings");
+        setSidebarOpen(false);
+      },
+      icon: CogIcon,
+    },
+    {
+      name: "Sign out",
+      onClick: async () => {
+        router.push("/signout");
+        setSidebarOpen(false);
+      },
+      icon: ArrowLeftStartOnRectangleIcon,
+      current: false,
+    },
+  ];
 
   return (
     <>
@@ -83,10 +118,10 @@ export function SingerDashboard() {
                       <ul role="list" className="-mx-2 space-y-1">
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <a
-                              href={item.href}
+                            <button
+                              onClick={item.onClick}
                               className={classNames(
-                                item.current
+                                pathname === item.pathname
                                   ? "bg-blue-700 text-white"
                                   : "text-blue-200 hover:bg-blue-700 hover:text-white",
                                 "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
@@ -102,7 +137,7 @@ export function SingerDashboard() {
                                 )}
                               />
                               {item.name}
-                            </a>
+                            </button>
                           </li>
                         ))}
                       </ul>
@@ -131,13 +166,13 @@ export function SingerDashboard() {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
+                        <button
+                          onClick={item.onClick}
                           className={classNames(
-                            item.current
+                            pathname === item.pathname
                               ? "bg-blue-700 text-white"
                               : "text-blue-200 hover:bg-blue-700 hover:text-white",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                            "group flex gap-x-1 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
                           <item.icon
@@ -150,7 +185,7 @@ export function SingerDashboard() {
                             )}
                           />
                           {item.name}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -170,20 +205,15 @@ export function SingerDashboard() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-white">
-            Dashboard
+            Instrumentalist
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              className="h-8 w-8 rounded-full bg-blue-700"
-            />
           </a>
         </div>
 
         <main className="py-10 lg:pl-72">
-          <div className="px-4 sm:px-6 lg:px-8">SINGER DASHBOARD</div>
+          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
     </>
