@@ -37,6 +37,7 @@ export function SingerDashboardLayout({
       pathname: "/instrumentalist-dashboard",
       onClick: () => {
         router.push("/instrumentalist-dashboard");
+        setSidebarOpen(false);
       },
       icon: HomeIcon,
     },
@@ -45,6 +46,7 @@ export function SingerDashboardLayout({
       pathname: "/instrumentalist-dashboard/connect",
       onClick: () => {
         router.push("/instrumentalist-dashboard/connect");
+        setSidebarOpen(false);
       },
       icon: UsersIcon,
     },
@@ -53,6 +55,7 @@ export function SingerDashboardLayout({
       pathname: "/instrumentalist-dashboard/settings",
       onClick: () => {
         router.push("/instrumentalist-dashboard/settings");
+        setSidebarOpen(false);
       },
       icon: CogIcon,
     },
@@ -60,6 +63,7 @@ export function SingerDashboardLayout({
       name: "Sign out",
       onClick: async () => {
         router.push("/signout");
+        setSidebarOpen(false);
       },
       icon: ArrowLeftStartOnRectangleIcon,
       current: false,
@@ -201,15 +205,10 @@ export function SingerDashboardLayout({
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-white">
-            Dashboard
+            Instrumentalist
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              className="h-8 w-8 rounded-full bg-blue-700"
-            />
           </a>
         </div>
 
